@@ -1,15 +1,26 @@
-## What’s new in 1.37.2
-
-## Note
-This update is required for support with clients with version 2026.8.0+, please update before reporting any issues with them.
+## What’s new in 1.37.3
 
 ## Changelog
-- Check upstream https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.2
+- Check upstream https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.3
 
 ### What's Changed
-Fix Debian cross-linking with xx-cargo by @alexliluz in #7524
-Fix playwright test by @Timshel in #7548
-Misc fixes and updates by @BlackDex in #7558
-Include user email in successful login logs by @lmogthb in #7496
-Fix sendmail executable permission check by @p-boenisch in #7483
-add dummy revisionDate by @stefan0xC in #7608
+Fix password change with newer web-vault
+chore: remove duplicate "the" in ciphers.rs comment
+Ignore reset-password auto-enroll when mail is disabled
+Fix migration for MariaDB 12.2.2
+Add SSO_SIGNUPS_ALLOWED
+log_event take enum parameter not i32
+Misc Updates
+Update rust docker version
+Fix organization import failing with missing field groups
+Add pm-32413-multi-client-password-management feature flag
+Log IP/username on two-factor email-login credential failures
+Support admin reset 2fa
+fix(security): revoke 2FA remember tokens when credentials or 2FA change
+fix(security): rate limit prelogin and auth request endpoints
+fix: Correct invalid comment syntax in .dockerignore
+Update Rust and adjust DockerSetting
+Route service clients through shared HTTP setup
+Fix iOS registration token response
+Use insert_into when possible
+Fix archiveDate update
