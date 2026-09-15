@@ -1,5 +1,5 @@
 name: Vaultwarden (Bitwarden) (Forked)
-version: 1.37.2
+version: 1.37.3
 slug: bitwarden
 description: Open source password management solution
 url: https://github.com/MartinKuhl/addon-bitwarden
