@@ -13,4 +13,4 @@ on:
 
 jobs:
   workflows:
-    uses: MartinKuhl/ha-workflows/.github/workflows/repository-lint.yaml@main
+    uses: martinkuhl/ha-workflows/.github/workflows/repository-lint.yaml@main
