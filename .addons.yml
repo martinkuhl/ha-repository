@@ -2,10 +2,10 @@
 channel: stable
 addons:
   bitwarden:
-    repository: MartinKuhl/addon-bitwarden
+    repository: martinkuhl/addon-bitwarden
     target: bitwarden
     image: ghcr.io/martinkuhl/bitwarden/{arch}
   nginxproxymanager:
-    repository: MartinKuhl/addon-nginx-proxy-manager
+    repository: martinkuhl/addon-nginx-proxy-manager
     target: proxy-manager
     image: ghcr.io/martinkuhl/nginxproxymanager/{arch}
