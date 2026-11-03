@@ -1,8 +1,8 @@
 name: Vaultwarden (Bitwarden) (Forked)
-version: 1.37.4
+version: 1.37.5
 slug: bitwarden
 description: Open source password management solution
-url: https://github.com/MartinKuhl/addon-bitwarden
+url: https://github.com/martinkuhl/addon-bitwarden
 webui: '[PROTO:ssl]://[HOST]:[PORT:7277]'
 init: false
 arch:
