@@ -1,49 +1,62 @@
-## What’s new in 1.37.4
+## What’s new in 1.37.5
 
 ## Changelog
-- Check upstream https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.4
+- Check upstream https://github.com/dani-garcia/vaultwarden/releases/tag/1.37.5
 
 ### Security Fixes
 
 This release contains security fixes for the following advisories. We strongly advise updating as soon as possible.
 
-- Organization member revocation [GHSA-69q9-v8p6-xvx3] (High, 8.1)
-- Two-factor authentication [GHSA-7jg8-8m5x-6j9r] (Medium, 6.8)
-- Organization invitations [GHSA-v576-3wvq-xh3c] (Medium, 6.8)
-- Attachments [GHSA-q5x6-grh5-fqgc] (Medium, 6.5)
-- Organization event logs [GHSA-64mc-4p6f-r7x9] (Medium, 4.3)
-- Cipher sharing [GHSA-7ccc-c43j-4p36] (Medium, 4.3)
-- Organization API key [GHSA-qwx4-wcv4-mpcv] (Low, 3.8)
-- Additional dependency updates and minor security enhancements
-- These are private for now, pending CVE assignment and publishing at a later date.
+Website icons [GHSA-x9cq-f669-vrr4] (Medium, 5.3)
+Emergency access [GHSA-9pjj-f9g5-3x4c] (Medium, 4.3)
+These are private for now, pending CVE assignment and publishing at a later date.
+
+### Note
+
+This update is required for web vault 2026.7.1+ to turn two-step login methods on or off, and for 2026.9.0+ to take over an account through emergency access. Please update before reporting any issues with them.
 
 ### Upgrade notes
 
-- Reverse proxies: with IP_HEADER=X-Forwarded-For, the client IP is now the rightmost address that isn't in IP_HEADER_TRUSTED_PROXIES (it used to be the leftmost). If you have several proxies in a row, for example a CDN in front of nginx, add all of them to IP_HEADER_TRUSTED_PROXIES. Otherwise the address of the proxy in front is used for rate limiting and logs.
-- Sends: bw send receive on CLI 2026.4.2 and older no longer works, the same as against Bitwarden's own servers since v2026.8.0. Creating and managing Sends works on all clients.
-- Feature flags: these flags were removed because no client reads them anymore: ssh-agent, ssh-key-vault-item, mutual-tls, anon-addy-self-host-alias, simple-login-self-host-alias, pm-25373-windows-biometrics-v2, pm-26340-linux-biometrics-v2, desktop-ui-migration-milestone-1 to -4, cxp-import-mobile and cxp-export-mobile. If EXPERIMENTAL_CLIENT_FEATURE_FLAGS still lists one of them, startup logs a warning and saving settings in the admin panel fails until it's removed.
-- Duo: DUO_USE_IFRAME (the deprecated Traditional Prompt) is removed and ignored if set.
-- Custom templates: there's a new email template, email/recover_twofactor, sent after a login with a two-step recovery code.
-- The legacy POST /identity/accounts/register and POST /api/accounts/prelogin endpoints are removed. No current client uses them.
+- Web vault: the bundled web vault is now v2026.10.1. If you serve your own web vault older than v2026.7.1, you might have compatibility issues.
+- Configuration: invalid values now stop startup with an error. Numeric options have tighter types, so negative or too large values are rejected, for example above 65535 for LOGIN_RATELIMIT_MAX_BURST, TRASH_AUTO_DELETE_DAYS, EVENTS_DAYS_RETAIN or SMTP_TIMEOUT, or above 255 for EMAIL_ATTEMPTS_LIMIT. The rate limit *_SECONDS and *_MAX_BURST options, DATABASE_TIMEOUT and DATABASE_IDLE_TIMEOUT must be at least 1, DATABASE_MIN_CONNS can't be larger than DATABASE_MAX_CONNS, and DUO_CONTEXT_PURGE_SCHEDULE and PURGE_INCOMPLETE_SSO_AUTH must be empty or a valid cron expression.
 
 ### What's Changed
-- [Web 2026.9.0] Support the vault banner policy
-- Add support for basic auth response client feature flag
-- [web-v2026.8.1] store the user key ID
-- Add organizationsNew and policiesNew to sync response
-- Add pm-32009-new-item-types feature flag
-- Update Crates, GHA and JS
-- Add pm-34171-card-scanner feature flag
-- Set user_created bool for each separate invitation
-- Fix revoked org members retaining access to org ciphers
-- Ensure all user checked routes are confirmed
-- Fix cortex-a53 build issues when using xx-cargo
-- Add undetermined-cipher-scenario-logic feature flag
-- Add Windows native credential sync to supported feature flags
-- Hide the whole change-email section when EMAIL_CHANGE_ALLOWED is false
-- Fix Clippy warnings across all targets
-- Admin reset: 2fa email fallback need a verified email
-- Sends cleanup: remove legacy endpoints and align with upstream
-- Remove legacy API endpoints and compatibility code
-- Align API with upstream and remove unwraps
-- Update crates, Rust and other dependencies
+- Close WebSocket connections that stop responding
+- Validate the Duo and SSO purge schedules on startup
+- docs: fix "runnning" typo in playwright README
+- docs: fix Playwright test env link
+- Fix group import to update groups on data change
+- [Web 2026.9.0] Support new Emergency Access password payload
+- [Web 2026.9.0] Support new account recovery password payload
+- [web-v2026.7.1] 2FA userVerificationToken for Authenticator, Email and Duo
+- Fix email 2FA for SSO logins on iOS and Android
+- Update web-vault to v2026.8.0
+- Add revision_date to org policies
+- Add Windows desktop Autotype feature flags and policy support
+- Add biometrics-sdk-ipc feature flag (closes #7812)
+- Delete auth requests when deleting a user
+- Add unsupported riscv64 architecture
+- api/icons: fix typos in the minimum PNG size comment
+- docs: fix connect-src description grammar
+- Update dependencies
+- Misc fixes regarding jobs and config
+- Send null org key for unconfirmed members in sync
+- Return stored manage flag for groups in collections/details
+- Fix bulk cipher share response for SDK clients
+- Upgrade to Rocket v0.5.2
+- Fix typo in vaultwarden.env
+- Remove expired cookies from the icon cookie jar
+- fix(attachments): enforce quota at v2 metadata reservation
+- Align cipher org checks & attachment notification with upstream
+- Document two feature flags in .env.template
+- Fix push device unregistration endpoint
+- Don't return internal error details in bulk member responses; gate SSO token logging
+- [Web 2026.9.0] Add Fill Assist + Policy support
+- Add registration email verification clicked endpoint
+- Make 2FA remember duration configurable
+- Bump user revision once for bulk cipher move
+- Send logout notification when deleting a user
+- Two small fixes for upstream parity
+- Add missing HTTP auth and policy revocation audit events
+- Clippy fixes, crate and web-vault updates
+- Escape request values in log messages
